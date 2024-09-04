@@ -1,0 +1,15 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_register_login/core/usecase/usecase.dart';
+import 'package:flutter_register_login/data/model/signup_req_params.dart';
+import 'package:flutter_register_login/data/repository/auth.dart';
+
+import '../../service_locator.dart';
+import '../repository/auth.dart';
+
+class SignupUseCase implements UseCase<Either,SignupReqParams>{
+  @override
+  Future<Either> call(SignupReqParams ? param) async {
+  return sl<AuthRepository>().signup(param!);
+  }
+  
+}

@@ -9,6 +9,7 @@ import '../../../common/widgets/button/basic_app_button.dart';
 import '../../../data/model/signup_req_params.dart';
 import '../../../domain/usecases/signup.dart';
 import '../../../service_locator.dart';
+import '../../home/pages/home.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -25,10 +26,10 @@ class SignupPage extends StatelessWidget {
         child: BlocListener<ButtonStateCubit,ButtonState>(
           listener: (context, state) {
             if (state is ButtonSuccessState) {
-              // Navigator.pushReplacement(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => const HomePage(),)
-              // );
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage(),)
+              );
             }
             if (state is ButtonFailureState){
               var snackBar = SnackBar(content: Text(state.errorMessage));
@@ -108,9 +109,9 @@ class SignupPage extends StatelessWidget {
                 context.read<ButtonStateCubit>().execute(
                     usecase: sl<SignupUseCase>(),
                     params: SignupReqParams(
-                        email: _emailCon.text.trim(),
-                        password: _passwordCon.text.trim(),
-                        username: _usernameCon.text.trim()
+                        email: _emailCon.text,
+                        password: _passwordCon.text,
+                        username: _usernameCon.text
                     )
                 );
               }

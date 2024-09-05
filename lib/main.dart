@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_register_login/presentation/home/pages/home.dart';
+import 'common/auth/auth_state.dart';
+import 'common/auth/auth_state_cubit.dart';
 import 'core/configs/theme/app_theme.dart';
 import 'presentation/auth/pages/signup.dart';
 import 'service_locator.dart';
@@ -26,25 +29,23 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     return
-      // BlocProvider(
-      // create: (context) => AuthStateCubit()..appStarted(),
-    //  child:
-    MaterialApp(
+      BlocProvider(
+      create: (context) => AuthStateCubit()..appStarted(),
+     child:MaterialApp(
           theme: AppTheme.appTheme,
           debugShowCheckedModeBanner: false,
-          home:SignupPage()
-        //BlocBuilder<AuthStateCubit,AuthState>(
-      //       builder: (context, state) {
-      //         if (state is Authenticated){
-      //           return const HomePage();
-      //         }
-      //         if (state is UnAuthenticated){
-      //           return SignupPage();
-      //         }
-      //         return Container();
-      //       },
-      //     )
-      // ),
+          home: BlocBuilder<AuthStateCubit,AuthState>(
+            builder: (context, state) {
+              if (state is Authenticated){
+                return const HomePage();
+              }
+              if (state is UnAuthenticated){
+                return SignupPage();
+              }
+              return Container();
+            },
+          )
+      ),
     );
   }
 }

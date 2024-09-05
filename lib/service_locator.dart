@@ -1,7 +1,9 @@
 import 'package:flutter_register_login/core/network/dio_client.dart';
 import 'package:flutter_register_login/data/repository/auth.dart';
 import 'package:flutter_register_login/data/source/auth_api_service.dart';
+import 'package:flutter_register_login/data/source/auth_local_service.dart';
 import 'package:flutter_register_login/domain/repository/auth.dart';
+import 'package:flutter_register_login/domain/usecases/is_logged_in.dart';
 import 'package:flutter_register_login/domain/usecases/signup.dart';
 import 'package:get_it/get_it.dart';
 
@@ -13,6 +15,10 @@ import 'package:get_it/get_it.dart';
   sl.registerSingleton<AuthApiService>(
    AuthApiServiceImpl()
   );
+
+  sl.registerSingleton<AuthLocalService>(
+      AuthLocalServiceImpl()
+  );
   //Repositories
   sl.registerSingleton<AuthRepository>(
       AuthRepositoryImpl()
@@ -20,6 +26,10 @@ import 'package:get_it/get_it.dart';
   //UseCases
   sl.registerSingleton<SignupUseCase>(
       SignupUseCase()
+  );
+
+  sl.registerSingleton<IsLoggedInUseCase>(
+      IsLoggedInUseCase()
   );
 
  }

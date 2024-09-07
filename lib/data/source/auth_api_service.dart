@@ -4,10 +4,12 @@ import 'package:flutter_register_login/core/configs/constants/app_urls.dart';
 import 'package:flutter_register_login/core/network/dio_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../service_locator.dart';
+import '../model/signin_req_params.dart';
 import '../model/signup_req_params.dart';
 
 abstract class AuthApiService{
   Future<Either> signup(SignupReqParams signupReq);
+  Future<Either> signin(SigninReqParams signinReq);
   Future<Either> getUser();
 
 }
@@ -37,6 +39,8 @@ class AuthApiServiceImpl extends AuthApiService{
          ApiUrls.userProfile,
         options: Options(
          headers: {
+           'Content-type': 'application/json',
+           'Accept': 'application/json',
       'Authorization':'Bearer $token'
          }
      )
@@ -45,6 +49,20 @@ class AuthApiServiceImpl extends AuthApiService{
    }on DioException catch(e){
      return Left(e.response!.data['message']) ;
    }
+  }
+
+  @override
+  Future<Either> signin(SigninReqParams signinReq) async{
+    try{
+      var response = await sl<DioClient>().post(
+        ApiUrls.login, //endpoint
+        data: signinReq.toMap(), //tomap =convert to object
+
+      );
+      return Right(response);
+    } on DioException catch(e){
+      return Left(e.response!.data['message']) ;
+    }
   }
 
 }

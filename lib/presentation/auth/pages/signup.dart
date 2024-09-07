@@ -2,6 +2,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_register_login/presentation/auth/pages/signin.dart';
 
 import '../../../common/bloc/button_state.dart';
 import '../../../common/bloc/button_state_cubit.dart';
@@ -139,11 +140,11 @@ class SignupPage extends StatelessWidget {
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => SigninPage(),
-                    //     )
-                    // );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SigninPage(),
+                        )
+                    );
                   }
             )
           ]

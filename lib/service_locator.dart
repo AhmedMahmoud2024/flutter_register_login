@@ -6,6 +6,7 @@ import 'package:flutter_register_login/domain/repository/auth.dart';
 import 'package:flutter_register_login/domain/usecases/get_user.dart';
 import 'package:flutter_register_login/domain/usecases/is_logged_in.dart';
 import 'package:flutter_register_login/domain/usecases/logout.dart';
+import 'package:flutter_register_login/domain/usecases/signin.dart';
 import 'package:flutter_register_login/domain/usecases/signup.dart';
 import 'package:get_it/get_it.dart';
 
@@ -40,5 +41,10 @@ import 'package:get_it/get_it.dart';
 
   sl.registerSingleton<LogoutUseCase>(
       LogoutUseCase()
+  );
+
+
+  sl.registerSingleton<SigninUseCase>(
+      SigninUseCase()
   );
  }
